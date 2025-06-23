@@ -4,9 +4,12 @@ import PageEditor from "../components/editor/PageEditor"
 import { Plus, User, LogOut, MoreHorizontal, Edit, FileText, Trash2 } from 'lucide-react';
 import FieldSidebar from './FieldSidebar';
 import TemplateCard from '../components/templates/TemplateCard';
+import TemplateGrid from '../components/templates/TemplateGrid';
 import Header from '../components/layout/Header';
 import Swal from 'sweetalert2';
 import { useMenu } from "../components/context/Context";
+
+import EmptyState from '../components/templates/EmptyState';
 
 // Header Component
 
@@ -45,52 +48,13 @@ export default function Dashboard() {
     ]);
     alert("✅ تم حفظ القالب بنجاح");
   };
-
-
-
-  const sampleTemplates = [
-    { id: 1, type: 'Employment Contract', name: 'Employee Agreement' },
-    { id: 2, type: 'Invoice', name: 'Service Invoice' },
-    { id: 3, type: 'Report', name: 'Monthly Report' },
-    { id: 4, type: 'Letter', name: 'Business Letter' },
-    { id: 5, type: 'Contract', name: 'Service Contract' },
-    { id: 6, type: 'Proposal', name: 'Project Proposal' }
-  ];
-
-  const handleUseTemplate = (template) => {
-    alert(`Using template: ${template.name}`);
-  };
-
-  const handleEdit = (template) => {
-    alert(`Editing template: ${template.name}`);
-  };
-
-  const handleRename = (template) => {
-    const newName = prompt('Enter new name:', template.name);
-    if (newName) {
-      alert(`Renamed to: ${newName}`);
-    }
-  };
-
-  const handleDelete = (template) => {
-  Swal.fire({
-    title: 'هل أنت متأكد؟',
-    text: `راح تحذف "${template.name}"`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'نعم، احذف',
-    cancelButtonText: 'إلغاء',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire('تم الحذف!', `تم حذف "${template.name}".`, 'success');
-      // هنا تحذف فعليًا من البيانات
-    }
-  });
-};
+ 
 
   return (
     <>
       <Header onImageReady={setImgSrc}  />
+
+
       <main className="main-content"   >
         <div className="container" >
           <div className="page-header">
@@ -116,24 +80,31 @@ export default function Dashboard() {
 
           <div className="content-area">
             {viewMode === 'empty' ? (
+
+
               <div className="empty-state">
 
                       {imgSrc ? (
-                  <>
-                    <PageEditor
+                  <div className='workspace'>
+
+
+                  <div className='box-edit'>
+                    <FieldSidebar field={selectedField} onUpdate={updateField} />
+                    <button className="save-button" onClick={handleSave}>
+                      <span>💾</span>
+                      <span>حفظ القالب</span>
+                    </button> 
+                    
+                    </div>
+                     <PageEditor
                       bgSrc={imgSrc}
                       fields={fields}
                       setFields={setFields}
                       selectedId={selectedId}
                       setSelectedId={setSelectedId}
                     />
-                    <FieldSidebar field={selectedField} onUpdate={updateField} />
-
-                    <button className="save-button" onClick={handleSave}>
-                      <span>💾</span>
-                      <span>حفظ القالب</span>
-                    </button>
-                  </>
+                  
+                  </div>
                 ) : (
                   <div className="editor-container">
                   <div className="empty-icon">
@@ -147,21 +118,9 @@ export default function Dashboard() {
                 )}
                       
                     </div>
+              // <EmptyState />
                   ) : (
-                    <div className="templates-grid">
-
-                      {sampleTemplates.map(template => (
-                        <TemplateCard
-                          key={template.id}
-                          template={template}
-                          onUseTemplate={handleUseTemplate}
-                          onEdit={handleEdit}
-                          onRename={handleRename}
-                          onDelete={handleDelete}
-                        />
-                      ))}
-
-              </div>
+              <TemplateGrid/>
             )}
           </div>
         </div>

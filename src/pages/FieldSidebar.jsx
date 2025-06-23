@@ -11,7 +11,7 @@ export default function FieldSidebar({ field, onUpdate }) {
     );
 
   return (
-    <>
+    <div className="sidebar-contenor">
       <div className="field-group">
         <label htmlFor="fieldName">اسم الحقل:</label>
         <input
@@ -49,6 +49,6 @@ export default function FieldSidebar({ field, onUpdate }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
