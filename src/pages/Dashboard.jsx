@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useContext ,useState } from 'react';
 import {saveTemplate} from "../components/services/templateService"
 import PageEditor from "../components/editor/PageEditor"
 import { FileText } from 'lucide-react';
@@ -6,6 +6,8 @@ import FieldSidebar from './FieldSidebar';
 // import TemplateCard from '../components/templates/TemplateCard';
 import TemplateGrid from '../components/templates/TemplateGrid';
 import Header from '../components/layout/Header';
+import {MenuContext} from "../components/context/Context"
+import axios from 'axios';
 // import Swal from 'sweetalert2';
 // import { useMenu } from "../components/context/Context";
 
@@ -18,13 +20,13 @@ import Header from '../components/layout/Header';
 
 // Main Dashboard Component
 export default function Dashboard() {
-
+const {selectedFile, setSelectedFile} = useContext(MenuContext);
   
   const [imgSrc, setImgSrc] = useState(null);
-  // const { showMenu, setShowMenu } = useMenu();
+
   const [viewMode, setViewMode] = useState('empty'); // 'empty' or 'with-templates'
   const [fields, setFields] = useState([]);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null); 
 
   const selectedField = fields.find((f) => f.id === selectedId);
 
@@ -32,7 +34,55 @@ export default function Dashboard() {
     setFields(fields.map((f) => (f.id === updated.id ? updated : f)));
   };
 
-  const handleSave = () => {
+
+//   const handleSubmit = async (name) => {
+
+//     const formData = new FormData();
+//     formData.append("file", selectedFile);
+
+//     await axios.post("http://localhost:5000/upload", formData, {
+//         headers: { "Content-Type": "multipart/form-data" },
+ 
+ 
+ 
+//    });
+
+
+
+
+
+//   alert("تم رفع الملف!");
+// };
+
+
+const handleSubmit = async (name) => {
+  if (!selectedFile) {
+    alert("ماكو ملف محدد!");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", selectedFile); // الملف
+  formData.append("name", name);         // الاسم
+  formData.append("fields", JSON.stringify(fields));
+
+  console.log(formData)
+  try {
+    await axios.post("http://localhost:5000/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    alert("✅ تم رفع الملف والاسم بنجاح");
+  } catch (error) {
+    console.error("❌ فشل الرفع", error);
+    alert("فشل الرفع");
+  }
+};
+
+
+
+
+  const handleSave = async () => {
     if (!fields.length) {
       alert("لا توجد حقول للحفظ!");
       return;
@@ -47,6 +97,7 @@ export default function Dashboard() {
           height: imgSrc ? 600 : 0,
            },
     ]);
+    await handleSubmit(name);
     alert("✅ تم حفظ القالب بنجاح");
   };
 

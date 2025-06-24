@@ -10,6 +10,7 @@ export default function TemplateCard({ template, onUseTemplate, onEdit, onRename
   const navigate =useNavigate();
 
   const [showMenu, setShowMenu] = useState(false);
+  console.log(template)
 
   return (
     <div className="template-card" >
@@ -18,12 +19,15 @@ export default function TemplateCard({ template, onUseTemplate, onEdit, onRename
       
       <div className="template-preview">
         <div className="document-mockup">
-          <div className="doc-header"></div>
+
+          {/* <div className="doc-header"></div>
           <div className="doc-line long"></div>
           <div className="doc-line medium"></div>
           <div className="doc-line short"></div>
           <div className="doc-line long"></div>
-          <div className="doc-line medium"></div>
+          <div className="doc-line medium"></div> */}
+
+          <img src={template.pages[0].image} style={{height:"100px" }} />
         </div>
       </div>
       

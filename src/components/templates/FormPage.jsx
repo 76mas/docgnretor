@@ -1,6 +1,7 @@
 import "./form.module.css"
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 
 
@@ -11,6 +12,12 @@ export default function FormPage() {
   // استخراج الحقول من أول صفحة
   const [fields, setFields] = useState(template.pages[0].fields);
 
+    
+
+    const fildInfo=fields.map((field)=>{
+      return {nameofbox:field.name ,valueofbox:field.value}
+    })
+console.log(fildInfo , "new arry")
   // تحديث قيمة حقل
   const handleChange = (id, newValue) => {
     setFields((prevFields) =>
@@ -19,6 +26,24 @@ export default function FormPage() {
       )
     );
   };
+
+const handelFetch = async () => {
+  try {
+    const response = await axios.post("http://localhost:3000/api/submit", {
+      valueofboxs: fildInfo,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("تم الإرسال بنجاح:", response.data);
+    // ممكن تخلي تنبيه أو تنقله لصفحة ثانية حسب الحاجة
+  } catch (error) {
+    console.error("فشل الإرسال:", error);
+    // ممكن تعرض رسالة خطأ للمستخدم
+  }
+};
 
   return (
 
@@ -41,7 +66,8 @@ export default function FormPage() {
       <button
         className="form-submit-btn"
         onClick={() => {
-          console.log("البيانات:", fields);
+          handelFetch();
+        
           // تقدر ترسلها للباك إند هنا
         }}
       >

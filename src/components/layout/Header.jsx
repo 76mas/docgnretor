@@ -1,14 +1,16 @@
 import styles from "./Header.module.css";
 import React from "react";
-import { useState } from "react";
+
 import { Plus, User, LogOut } from "lucide-react";
 import { useRef } from "react";
 import { pdfToImage } from "../services/pdfService";
+import {MenuContext} from "../context/Context"
+import { useContext,useState } from "react";
 
 export default function Header({onImageReady}) {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
-
+const {selectedFile, setSelectedFile} = useContext(MenuContext);
 
 
 
@@ -26,13 +28,16 @@ export default function Header({onImageReady}) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      setSelectedFile(file);
       const arrayBuffer = await file.arrayBuffer();
       const img = await pdfToImage(arrayBuffer);
        onImageReady(img);
+       console.log(file);
       alert(`تم اختيار الملف: ${file.name}`);
       // هنا تقدر تسوي upload أو أي منطق ثاني
     }
   };
+
 
   return (
     <header className="header">
