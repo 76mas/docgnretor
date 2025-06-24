@@ -1,6 +1,11 @@
-import React from "react";
+// import React, { useState } from "react";
+
+
 
 export default function FieldSidebar({ field, onUpdate }) {
+
+  // const [xy,setxy]=useState
+
   if (!field)
     return (
       <div className="empty-sidebar">
@@ -9,7 +14,7 @@ export default function FieldSidebar({ field, onUpdate }) {
         <p>انقر على أي حقل لتعديل خصائصه</p>
       </div>
     );
-
+console.log(field)
   return (
     <div className="sidebar-contenor">
       <div className="field-group">
@@ -21,6 +26,8 @@ export default function FieldSidebar({ field, onUpdate }) {
           onChange={(e) => onUpdate({ ...field, name: e.target.value })}
         />
       </div>
+
+      
       <div className="field-group">
         <label htmlFor="fieldType">نوع الحقل:</label>
         <select
@@ -51,4 +58,6 @@ export default function FieldSidebar({ field, onUpdate }) {
       </div>
     </div>
   );
+
+  
 }

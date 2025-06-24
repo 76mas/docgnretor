@@ -1,10 +1,13 @@
 import { MoreHorizontal, Edit, FileText, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 import { useState } from 'react';
 
 import { useContext } from 'react';
 
 export default function TemplateCard({ template, onUseTemplate, onEdit, onRename, onDelete }) {
 
+  const navigate =useNavigate();
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -28,7 +31,7 @@ export default function TemplateCard({ template, onUseTemplate, onEdit, onRename
         <h3 className="template-name">{template.name}</h3>
         
         <div className="template-actions">
-          <button className="use-btn" onClick={() => onUseTemplate(template)}>
+          <button className="use-btn" onClick={() =>  navigate("/formpage", { state: { template } })}>
             Use Template
           </button>
           

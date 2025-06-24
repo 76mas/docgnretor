@@ -1,0 +1,278 @@
+/* Main Container */
+.form-page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-page-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.form-page-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Content Wrapper */
+.form-page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Title Styling */
+.form-title {
+  color: #2d3748;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Field Group Container */
+.form-field-group {
+  margin-bottom: 30px;
+  position: relative;
+  counter-increment: field-counter;
+}
+
+.form-page-container {
+  counter-reset: field-counter;
+}
+
+/* Label Styling */
+.form-label {
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.form-label::before {
+  content: counter(field-counter);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-left: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.form-field-group:hover .form-label::before {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* Input Styling */
+.form-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: rgba(247, 250, 252, 0.8);
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  backdrop-filter: blur(5px);
+}
+
+.form-input:focus {
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
+              0 8px 25px rgba(102, 126, 234, 0.15);
+  transform: translateY(-2px);
+}
+
+.form-input:hover:not(:focus) {
+  border-color: #cbd5e0;
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Input Icons based on type */
+.form-input[type="email"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+  padding-right: 50px;
+}
+
+.form-input[type="tel"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+  padding-right: 50px;
+}
+
+/* Submit Button */
+.form-submit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.form-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.form-submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.form-submit-btn:hover::before {
+  left: 100%;
+}
+
+.form-submit-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+}
+
+.form-submit-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2),
+              0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+.form-submit-btn:focus {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-page-container {
+    padding: 30px 20px;
+    margin: 20px;
+    border-radius: 15px;
+  }
+  
+  .form-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form-input {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .form-input[type="email"],
+  .form-input[type="tel"] {
+    padding-right: 45px;
+  }
+  
+  .form-submit-btn {
+    padding: 16px 30px;
+    font-size: 1.1rem;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+  }
+  
+  .form-label::before {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-page-container {
+    padding: 25px 15px;
+    margin: 15px;
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+  }
+  
+  .form-field-group {
+    margin-bottom: 25px;
+  }
+}

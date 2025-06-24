@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import {saveTemplate} from "../components/services/templateService"
 import PageEditor from "../components/editor/PageEditor"
-import { Plus, User, LogOut, MoreHorizontal, Edit, FileText, Trash2 } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import FieldSidebar from './FieldSidebar';
-import TemplateCard from '../components/templates/TemplateCard';
+// import TemplateCard from '../components/templates/TemplateCard';
 import TemplateGrid from '../components/templates/TemplateGrid';
 import Header from '../components/layout/Header';
-import Swal from 'sweetalert2';
-import { useMenu } from "../components/context/Context";
+// import Swal from 'sweetalert2';
+// import { useMenu } from "../components/context/Context";
 
-import EmptyState from '../components/templates/EmptyState';
+// import EmptyState from '../components/templates/EmptyState';
 
 // Header Component
 
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   
   const [imgSrc, setImgSrc] = useState(null);
-  const { showMenu, setShowMenu } = useMenu();
+  // const { showMenu, setShowMenu } = useMenu();
   const [viewMode, setViewMode] = useState('empty'); // 'empty' or 'with-templates'
   const [fields, setFields] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -41,14 +41,18 @@ export default function Dashboard() {
     if (!name) return;
     saveTemplate(name, [
       {
-        width: imgSrc ? 800 : 0,
-        height: imgSrc ? 600 : 0,
-        fields,
-      },
+         image: imgSrc,             // صورة الخلفية بصيغة base64 من pdfToImage
+          fields,                   // الحقول المضافة للقالب
+          width: imgSrc ? 800 : 0,
+          height: imgSrc ? 600 : 0,
+           },
     ]);
     alert("✅ تم حفظ القالب بنجاح");
   };
- 
+
+
+
+
 
   return (
     <>
